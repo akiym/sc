@@ -5,7 +5,8 @@ _start:
 dir_read:
     pop rdi
     xor rax,rax
-    xor rsi,rsi
+    push rax
+    pop rsi
     mov rdx,rdx
     mov al,0x2
     syscall

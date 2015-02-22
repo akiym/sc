@@ -5,8 +5,10 @@ _start:
 execve:
     xor rax,rax
     pop rdi
-    xor rsi,rsi
-    xor rdx,rdx
+    push rax
+    pop rsi
+    push rax
+    pop rdx
     mov al,0x3b
     syscall
     ret

