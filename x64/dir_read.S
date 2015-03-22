@@ -7,7 +7,8 @@ dir_read:
     xor rax,rax
     push rax
     pop rsi
-    mov rdx,rdx
+    push rax
+    pop rdx
     mov al,0x2
     syscall
 getdents:
