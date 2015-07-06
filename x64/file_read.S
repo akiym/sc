@@ -12,10 +12,12 @@ file_read:
     mov al,0x2
     syscall
 
-    mov rdi,rax
+    push rax
+    pop rdi
     push rsi
     pop rax
-    mov rsi,rsp
+    push rsp
+    pop rsi
     mov dl,0x40
     syscall
 
