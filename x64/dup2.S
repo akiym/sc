@@ -1,5 +1,5 @@
-BITS 64
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     xor rax,rax
     push rax

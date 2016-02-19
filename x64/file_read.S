@@ -1,5 +1,5 @@
-BITS 64
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     jmp loadstring
 file_read:
@@ -29,4 +29,4 @@ file_read:
     ret
 loadstring:
     call file_read
-    db "/flag",0
+    ## .asciz "/flag"

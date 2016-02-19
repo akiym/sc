@@ -1,9 +1,9 @@
-BITS 64
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     jmp stager1
 pc:
-    pop rsi ; +3
+    pop rsi # +3
     jmp stager2
 stager1:
     xor rax,rax

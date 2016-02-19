@@ -1,5 +1,5 @@
-BITS 64
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     jmp loadstring
 execve:
@@ -14,4 +14,4 @@ execve:
     ret
 loadstring:
     call execve
-    ;db "/bin/sh",0
+    ## .asciz "/bin/sh"

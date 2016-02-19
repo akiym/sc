@@ -1,5 +1,5 @@
-BITS 32
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     jmp loadstring
 dir_read:
@@ -11,18 +11,18 @@ dir_read:
     int 0x80
 
     mov dl,0x7f
-    mov ecx,esp ; old_linux_dirent
-    mov ebx,eax ; fd
+    mov ecx,esp # old_linux_dirent
+    mov ebx,eax # fd
     mov al,0x59
 opendir:
-    pushad ; store fd
+    pushad # store fd
     int 0x80
     test eax,eax
     jz end
 
-    movzx dx,[ecx+0x8]    ; d_namlen
+    movzx dx,byte ptr [ecx+0x8]    # d_namlen
     mov bl,0x1
-    lea ecx,[ecx+ebx+0x9] ; d_name
+    lea ecx,[ecx+ebx+0x9] # d_name
     mov al,0x4
     int 0x80
 
@@ -40,4 +40,4 @@ end:
     ret
 loadstring:
     call dir_read
-    db ".", 0
+    .asciz "."

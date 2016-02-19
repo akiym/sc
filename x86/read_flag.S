@@ -1,5 +1,5 @@
-BITS 32
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     xor eax,eax
     push eax

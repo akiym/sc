@@ -1,5 +1,5 @@
-BITS 64
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
     push 0x67616c66
     push rsp

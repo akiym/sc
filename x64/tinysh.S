@@ -1,7 +1,8 @@
-BITS 64
-global _start
+.intel_syntax noprefix
+.globl _start
 _start:
-    xor rax,rax ; read
+tinysh:
+    xor rax,rax # read
     push rax
     pop rdi
     push rsp
@@ -10,7 +11,7 @@ _start:
     pop rdx
     mov dl,0xff
     syscall
-    mov byte [rsp+rax-1],0x0 ; remove trailling newline
+    mov byte ptr [rsp+rax-1],0x0 # remove trailling newline
 
     xor rax,rax
     push rsp
@@ -19,14 +20,14 @@ _start:
     pop rsi
     push rax
     pop rdx
-    mov al,0x2 ; open
+    mov al,0x2 # open
     syscall
     test rax,rax
-    js _start
-    mov rbx,rax ; fd
+    js tinysh
+    mov rbx,rax # fd
 
 file_read:
-    xor rax,rax ; read
+    xor rax,rax # read
     push rbx
     pop rdi
     push rsp
@@ -42,45 +43,45 @@ file_read:
     xchg rax,rdx
     xor rax,rax
     mov dil,0x1
-    mov al,0x1 ; write
+    mov al,0x1 # write
     syscall
-    jmp _start
+    jmp tinysh
 
 dir_read:
 getdents:
     xor rax,rax
     mov dl,0x7f
-    mov rsi,rsp ; linux_dirent
-    mov rdi,rbx ; fd
-    mov al,0x4e ; getdents
+    mov rsi,rsp # linux_dirent
+    mov rdi,rbx # fd
+    mov al,0x4e # getdents
     syscall
     cmp rax,1
-    jl _start
+    jl tinysh
     mov r10,rsp
-    lea r8,[rax+r10]  ; nread
+    lea r8,[rax+r10]  # nread
 next_ent:
-    lea rsi,[r10+0x12] ; d_name
+    lea rsi,[r10+0x12] # d_name
 write:
     xor rdx,rdx
-    mov dl,0x1  ; count
-    mov dil,0x1 ; fd
+    mov dl,0x1  # count
+    mov dil,0x1 # fd
     xor rax,rax
-    mov al,0x1 ; write
+    mov al,0x1 # write
     syscall
     inc rsi
-    mov al,byte [rsi]
+    mov al,byte ptr [rsi]
     test al,al
     jnz write
 
-    lea rsi,[rdx+0x9] ; '\n'
+    lea rsi,[rdx+0x9] # '\n'
     push rsi
     mov rsi,rsp
-    mov al,0x1 ; write
+    mov al,0x1 # write
     syscall
     add rsp, 8
 
     xor rsi,rsi
-    mov si,word [r10+0x10] ; d_reclen
+    mov si,word ptr [r10+0x10] # d_reclen
     add r10,rsi
     cmp r10,r8
     jl next_ent
