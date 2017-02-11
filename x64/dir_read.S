@@ -12,13 +12,13 @@ dir_read:
     mov al,0x2
     syscall
 getdents:
-    mov dl,0x7f
+    mov dx,0x4000
     mov rsi,rsp # linux_dirent
     mov rdi,rax # fd
     mov al,0x4e
     syscall
-    cmp rax,1
-    jl end
+    test rax,rax
+    jle end
     mov r10,rsp
     lea r8,[rax+r10]  # nread
 next_ent:
@@ -43,7 +43,7 @@ write:
     add rsp, 8
 
     xor rsi,rsi
-    mov si,word ptr [r10+0x10] # d_reclen
+    movzx rsi,word ptr [r10+0x10] # d_reclen
     add r10,rsi
     cmp r10,r8
     jl next_ent

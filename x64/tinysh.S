@@ -81,7 +81,7 @@ write:
     add rsp, 8
 
     xor rsi,rsi
-    mov si,word ptr [r10+0x10] # d_reclen
+    movzx rsi,word ptr [r10+0x10] # d_reclen
     add r10,rsi
     cmp r10,r8
     jl next_ent
